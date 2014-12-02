@@ -1,6 +1,6 @@
 'use strict';
 
-var proc = require('child_process');
+var spawn = require('child_process').spawn;
 var path = require('path');
 var fs = require('fs');
 
@@ -13,9 +13,9 @@ module.exports = function hooks (opts) {
     if (typeof args === 'function') return run(hook, [], args);
     var script = path.join(opts.dir, hook);
     var override = opts.overrides && opts.overrides[hook];
-    if (override) return cb(proc.spawn('/bin/sh', ['-c', override, hook].concat(args)));
+    if (override) return cb(spawn('/bin/sh', ['-c', override, hook].concat(args)));
     fs.exists(script, function (exists) {
-      if (exists) cb(proc.spawn(script, args, { cwd: opts.cwd }));
+      if (exists) cb(spawn(script, args, { cwd: opts.cwd }));
     });
   };
 };
