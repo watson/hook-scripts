@@ -9,42 +9,51 @@ var Hooks = require('../');
 var dir = path.join(process.cwd(), 'test', 'hooks');
 var cmd = 'node ' + path.join(dir, 'foo');
 
-test('run without opts', function (t) {
-  var hook = Hooks();
-  hook('foo', function (err, stdout, stderr) {
-    var script = path.join(process.cwd(), 'hooks', 'foo');
-    t.equals(err.message, 'Unknown file: ' + script);
-    t.end();
-  });
-});
-
 test('run with dir string', function (t) {
-  var hook = Hooks(dir);
-  hook('foo', function (err, stdout, stderr) {
-    t.equals(err.code, 42);
-    t.equals(stdout, cmd);
-    t.equals(stderr, process.cwd());
-    t.end();
+  var hooks = Hooks(dir);
+  hooks('foo', function (hook) {
+    var stdout = [];
+    var stderr = [];
+    hook.on('close', function (code) {
+      t.equals(code, 42);
+      t.equals(stdout.join(''), cmd);
+      t.equals(stderr.join(''), process.cwd());
+      t.end();
+    });
+    hook.stdout.on('data', stdout.push.bind(stdout));
+    hook.stderr.on('data', stderr.push.bind(stderr));
   });
 });
 
 test('run with opts.dir', function (t) {
-  var hook = Hooks({ dir: dir });
-  hook('foo', function (err, stdout, stderr) {
-    t.equals(err.code, 42);
-    t.equals(stdout, cmd);
-    t.equals(stderr, process.cwd());
-    t.end();
+  var hooks = Hooks({ dir: dir });
+  hooks('foo', function (hook) {
+    var stdout = [];
+    var stderr = [];
+    hook.on('close', function (code) {
+      t.equals(code, 42);
+      t.equals(stdout.join(''), cmd);
+      t.equals(stderr.join(''), process.cwd());
+      t.end();
+    });
+    hook.stdout.on('data', stdout.push.bind(stdout));
+    hook.stderr.on('data', stderr.push.bind(stderr));
   });
 });
 
 test('run with opts.dir + opts.cwd', function (t) {
   var cwd = fs.realpathSync(os.tmpdir());
-  var hook = Hooks({ dir: dir, cwd: cwd });
-  hook('foo', function (err, stdout, stderr) {
-    t.equals(err.code, 42);
-    t.equals(stdout, cmd);
-    t.equals(stderr, cwd);
-    t.end();
+  var hooks = Hooks({ dir: dir, cwd: cwd });
+  hooks('foo', function (hook) {
+    var stdout = [];
+    var stderr = [];
+    hook.on('close', function (code) {
+      t.equals(code, 42);
+      t.equals(stdout.join(''), cmd);
+      t.equals(stderr.join(''), cwd);
+      t.end();
+    });
+    hook.stdout.on('data', stdout.push.bind(stdout));
+    hook.stderr.on('data', stderr.push.bind(stderr));
   });
 });

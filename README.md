@@ -16,9 +16,12 @@ npm install hook-scripts
 ```js
 var hooks = require('hook-scripts')();
 
-hooks('hook-name', function (err, stdout, stderr) {
-  console.log('Script exit code:', err ? err.code : 0);
-  console.log('Script output:\n' + stdout);
+hooks('hook-name', function (hook) {
+  hook.on('close', function (code) {
+    console.log('Script exited with code', code);
+  });
+  hook.stdout.pipe(process.stdout);
+  hook.stderr.pipe(process.stderr);
 });
 ```
 
@@ -39,7 +42,7 @@ You can parse in arguments to the hook script using an optional 2nd
 argument when registering the hook:
 
 ```js
-hooks('hook-name', ['arg1', 'arg2'], function (err, stdout, stderr) {...});
+hooks('hook-name', ['arg1', 'arg2'], function (hook) {...});
 ```
 
 ## Example hooks

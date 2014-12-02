@@ -13,8 +13,7 @@ module.exports = function hooks (opts) {
     if (typeof args === 'function') return run(hook, [], args);
     var script = path.join(opts.dir, hook);
     fs.exists(script, function (exists) {
-      if (!exists) return cb(new Error('Unknown file: ' + script));
-      child_process.execFile(script, args, { cwd: opts.cwd }, cb);
+      if (exists) cb(child_process.spawn(script, args, { cwd: opts.cwd }));
     });
   };
 };
