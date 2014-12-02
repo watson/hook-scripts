@@ -1,6 +1,6 @@
 'use strict';
 
-var child_process = require('child_process');
+var proc = require('child_process');
 var path = require('path');
 var fs = require('fs');
 
@@ -13,7 +13,7 @@ module.exports = function hooks (opts) {
     if (typeof args === 'function') return run(hook, [], args);
     var script = path.join(opts.dir, hook);
     fs.exists(script, function (exists) {
-      if (exists) cb(child_process.spawn(script, args, { cwd: opts.cwd }));
+      if (exists) cb(proc.spawn(script, args, { cwd: opts.cwd }));
     });
   };
 };
