@@ -78,6 +78,22 @@ console.log('Hello World');
 puts 'Hello World'
 ```
 
+## Advanced use-cases
+
+### Overrides
+
+Using the initialization option `overrides` it's possible to override
+individual hooks:
+
+```js
+var hooks = require('hook-scripts')({ overrides: { foo: 'echo bar' } });
+
+// will run `echo bar` instead of looking for a script named foo
+hooks('foo', function (hook) {
+  hook.stdout.pipe(process.stdout); // pipes `bar\n` to STDOUT
+});
+```
+
 ## License
 
 MIT

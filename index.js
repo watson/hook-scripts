@@ -12,6 +12,8 @@ module.exports = function hooks (opts) {
   return function run (hook, args, cb) {
     if (typeof args === 'function') return run(hook, [], args);
     var script = path.join(opts.dir, hook);
+    var override = opts.overrides && opts.overrides[hook];
+    if (override) return cb(proc.spawn('/bin/sh', ['-c', override, hook].concat(args)));
     fs.exists(script, function (exists) {
       if (exists) cb(proc.spawn(script, args, { cwd: opts.cwd }));
     });

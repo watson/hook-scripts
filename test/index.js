@@ -57,3 +57,16 @@ test('run with opts.dir + opts.cwd', function (t) {
     hook.stderr.on('data', stderr.push.bind(stderr));
   });
 });
+
+test('run with override', function (t) {
+  var hooks = Hooks({ dir: dir, overrides: { foo: 'echo bar' } });
+  hooks('foo', function (hook) {
+    var stdout = [];
+    hook.on('close', function (code) {
+      t.equals(code, 0);
+      t.equals(stdout.join(''), 'bar\n');
+      t.end();
+    });
+    hook.stdout.on('data', stdout.push.bind(stdout));
+  });
+});
