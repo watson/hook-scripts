@@ -1,0 +1,25 @@
+{
+  "name": "hook-scripts",
+  "version": "0.0.0",
+  "description": "Run executable scripts from a hooks folder",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "devDependencies": {
+    "tape": "^3.0.1"
+  },
+  "keywords": [
+    "hook",
+    "hooks",
+    "script",
+    "scripts",
+    "exec",
+    "execute",
+    "executable",
+    "before",
+    "after"
+  ],
+  "author": "Thomas Watson Steen <w@tson.dk>",
+  "license": "MIT"
+}

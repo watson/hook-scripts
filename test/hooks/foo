@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+process.stdout.write(process.argv.join(' '));
+process.stderr.write(process.cwd());
+process.exit(42);
