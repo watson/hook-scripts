@@ -15,7 +15,8 @@ module.exports = function hooks (opts) {
     var override = opts.overrides && opts.overrides[hook];
     if (override) return cb(spawn('/bin/sh', ['-c', override, hook].concat(args)));
     fs.exists(script, function (exists) {
-      if (exists) cb(spawn(script, args, { cwd: opts.cwd }));
+      if (!exists) return cb();
+      cb(spawn(script, args, { cwd: opts.cwd }));
     });
   };
 };

@@ -17,6 +17,7 @@ npm install hook-scripts
 var hooks = require('hook-scripts')();
 
 hooks('hook-name', function (hook) {
+  if (!hook) return console.log('No hook named hook-name found');
   hook.on('close', function (code) {
     console.log('Script exited with code', code);
   });

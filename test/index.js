@@ -9,6 +9,14 @@ var Hooks = require('../');
 var dir = path.join(process.cwd(), 'test', 'hooks');
 var cmd = 'node ' + path.join(dir, 'foo');
 
+test('run with non-existing hook', function (t) {
+  var hooks = Hooks();
+  hooks('non-existing', function (hook) {
+    t.ok(!hook);
+    t.end();
+  });
+});
+
 test('run with dir string', function (t) {
   var hooks = Hooks(dir);
   hooks('foo', function (hook) {
