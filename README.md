@@ -1,7 +1,7 @@
 # hook-scripts
 
 Add [git-style](http://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
-hooks to your node module.
+hooks to your node project.
 
 [![build status](https://secure.travis-ci.org/watson/hook-scripts.png)](http://travis-ci.org/watson/hook-scripts)
 
