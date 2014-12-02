@@ -45,6 +45,24 @@ argument when registering the hook:
 hooks('hook-name', ['arg1', 'arg2'], function (hook) {...});
 ```
 
+### Initialize
+
+An initializer is returned when requireing `hook-scripts`. It takes one
+optional argument which can either be a string or an options hash.
+
+```js
+require('hook-scripts')([dir || options]);
+```
+
+The string is just a shorthand for parsing in `{ dir: string }`.
+
+The full list of options are:
+
+- `dir` - The directory in which to look for the hook scripts
+- `cwd` - The working directory in which to run the hook scripts (defaults to `process.cwd()`)
+- `overrides` - An optional hash of hook script overrides (see the [Advanced](#advanced) section below)
+
+
 ## Example hooks
 
 The hooks can be written in any language that you prefer. Just make sure
