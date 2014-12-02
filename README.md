@@ -78,7 +78,7 @@ console.log('Hello World');
 puts 'Hello World'
 ```
 
-## Advanced use-cases
+## Advanced
 
 ### Overrides
 
