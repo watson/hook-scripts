@@ -21,5 +21,8 @@
     "after"
   ],
   "author": "Thomas Watson Steen <w@tson.dk>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "xtend": "^4.0.0"
+  }
 }
